@@ -2,7 +2,7 @@ import requests
 
 class CoinMarketCap:
 	BASE_URL = 'https://pro-api.coinmarketcap.com'
-	
+
 	def __init__(self, api_key, version='v1', fetch_timeout=None):
 		self.api_key = api_key
 		self.version = version
@@ -12,7 +12,7 @@ class CoinMarketCap:
 		self.session = self._init_session()
 
 	def _init_session(self):
-		session = requests.Session()
+		session - requests.Session()
 		session.headers.update({
 			'Accepts' : 'application/json',
 			'X-CMC_PRO_API_KEY': self.api_key,
@@ -28,7 +28,7 @@ class CoinMarketCap:
 
 		return self.parse_response(response)
 
-	def parse_response(response):
+	def parse_response(self, response):
 		response_dict = response.json()
 		if response.status_code == 200:
 			return response_dict['data']
