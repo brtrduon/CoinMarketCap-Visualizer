@@ -8,7 +8,7 @@
   </head>
   <body>
     <form action='/search' method='post'>
-      <label for='currency'>Currencies</label>
+      <label for='currency'>Currencies to convert from</label>
       <select name='currency'>
         {% for currency in currencies %}
           <option value='{{ currency }}'>{{ currency }}</option>
@@ -17,7 +17,10 @@
       <input type='submit' value='Go'>
     </form>
     <p>Currency: {{ currency }}</p>
-    <p>Cryptocurrency Name: {{ i['name'] }}</p>
-    {{ i }}
+    <p>Cryptocurrency Name: {{ crypto_name }}</p>
+    <p>Price: {{ price }}</p>
+    <p>Market Cap: {{ market_cap }}</p>
+    <p>24 Hour Volume: {{ volume_24h }}</p>
+    <p>Last Updated: {{ last_updated }}</p>
   </body>
 </html>

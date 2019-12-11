@@ -57,12 +57,26 @@ def fetchAPIData(currency):
 
 @app.route('/')
 def homepage():
-	a = fetchAPIData(currency = 'USD')
+	currency = 'USD'
+	a = fetchAPIData(currency = currency)
 	
 	for i in a:
-		print(i)
+		crypto_name = i['name']
+		last_updated = i['last_updated']
+		market_cap = i['quote'][currency]['market_cap']
+		price = i['quote'][currency]['price']
+		volume_24h = i['quote'][currency]['volume_24h']
 
-	return render_template('index.html', i = i, currencies = currencies, currency = 'USD')
+	return render_template(
+		'index.html', 
+		currencies = currencies, 
+		currency = currency,
+		last_updated = last_updated,
+		market_cap = market_cap,
+		price = price,
+		volume_24h = volume_24h,
+		crypto_name = crypto_name
+	)
 
 @app.route('/search', methods=['POST'])
 def search():
@@ -71,6 +85,19 @@ def search():
 		a = fetchAPIData(currency = currency)
 
 		for i in a:
-			print(i)
+			crypto_name = i['name']
+			last_updated = i['last_updated']
+			market_cap = i['quote'][currency]['market_cap']
+			price = i['quote'][currency]['price']
+			volume_24h = i['quote'][currency]['volume_24h']
 
-		return render_template('index.html', i = i, currencies = currencies, currency = currency)
+		return render_template(
+			'index.html', 
+			currencies = currencies, 
+			currency = currency,
+			last_updated = last_updated,
+			market_cap = market_cap,
+			price = price,
+			volume_24h = volume_24h,
+			crypto_name = crypto_name
+		)
