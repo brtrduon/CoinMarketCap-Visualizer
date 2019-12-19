@@ -7,7 +7,7 @@
     <title>CoinMarketCap - Visualizer</title>
   </head>
   <body>
-    <form action='/search' method='post'>
+    <form name='searchAPI' action='/search' method='post'>
       <label for='currency'>Currencies to convert from</label>
       <select name='currency'>
         {% for currency in currencies %}
@@ -22,5 +22,12 @@
     <p>Market Cap: {{ market_cap }}</p>
     <p>24 Hour Volume: {{ volume_24h }}</p>
     <p>Last Updated: {{ last_updated }}</p>
+    <script>
+      (function searchAPI() {
+        window.setTimeout(() => {
+          document.searchAPI.submit();
+        }, 300000);
+      })(); 
+    </script>
   </body>
 </html>
