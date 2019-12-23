@@ -10,13 +10,17 @@
     <form name='searchAPI' action='/search' method='post'>
       <label for='currency'>Currencies to convert from</label>
       <select name='currency'>
+        <option value='{{ selectedCurrency }}'>{{ selectedCurrency }}</option>
         {% for currency in currencies %}
+          {% if currency == selectedCurrency %}
+            {% continue %}
+          {% endif %}
           <option value='{{ currency }}'>{{ currency }}</option>
         {% endfor %}
       </select>
       <input type='submit' value='Go'>
     </form>
-    <p>Currency: {{ currency }}</p>
+    <p>Currency: {{ selectedCurrency }}</p>
     <p>Cryptocurrency Name: {{ crypto_name }}</p>
     <p>Price: {{ price }}</p>
     <p>Market Cap: {{ market_cap }}</p>

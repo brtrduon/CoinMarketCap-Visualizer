@@ -6,6 +6,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from secret import key
 
 app = Flask(__name__)
+app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
 currencies = ['USD', 'ALL', 'DZD', 'ARS', 'AMD', 'AUD', 'AZN', 'BHD', 'BDT',
 'BYN', 'BMD', 'BOB', 'BAM', 'BRL', 'BGN', 'KHR', 'CAD', 'CLP', 'CNY', 'COP',
@@ -57,20 +58,20 @@ def fetchAPIData(currency):
 
 @app.route('/')
 def homepage():
-	currency = 'USD'
-	a = fetchAPIData(currency = currency)
+	selectedCurrency = 'USD'
+	a = fetchAPIData(currency = selectedCurrency)
 	
 	for i in a:
 		crypto_name = i['name']
 		last_updated = i['last_updated']
-		market_cap = i['quote'][currency]['market_cap']
-		price = i['quote'][currency]['price']
-		volume_24h = i['quote'][currency]['volume_24h']
+		market_cap = i['quote'][selectedCurrency]['market_cap']
+		price = i['quote'][selectedCurrency]['price']
+		volume_24h = i['quote'][selectedCurrency]['volume_24h']
 
 	return render_template(
 		'index.html', 
 		currencies = currencies, 
-		currency = currency,
+		selectedCurrency = selectedCurrency,
 		last_updated = last_updated,
 		market_cap = market_cap,
 		price = price,
@@ -81,20 +82,20 @@ def homepage():
 @app.route('/search', methods=['POST'])
 def search():
 	if request.method == 'POST':
-		currency = request.form['currency']
-		a = fetchAPIData(currency = currency)
+		selectedCurrency = request.form['currency']
+		a = fetchAPIData(currency = selectedCurrency)
 
 		for i in a:
 			crypto_name = i['name']
 			last_updated = i['last_updated']
-			market_cap = i['quote'][currency]['market_cap']
-			price = i['quote'][currency]['price']
-			volume_24h = i['quote'][currency]['volume_24h']
+			market_cap = i['quote'][selectedCurrency]['market_cap']
+			price = i['quote'][selectedCurrency]['price']
+			volume_24h = i['quote'][selectedCurrency]['volume_24h']
 
 		return render_template(
 			'index.html', 
 			currencies = currencies, 
-			currency = currency,
+			selectedCurrency = selectedCurrency,
 			last_updated = last_updated,
 			market_cap = market_cap,
 			price = price,
