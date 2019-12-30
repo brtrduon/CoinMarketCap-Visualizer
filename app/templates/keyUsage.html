@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>CoinMarketCap - Visualizer</title>
+  </head>
+  <body>
+    <h1>Your API Key Usage</h1>
+    <div>
+      <h3>Credit Limits:</h3>
+      <p>Daily Credit Limit: {{ credit_limit_daily }}</p>
+      <p>Daily Credit Limit Resets {{ credit_limit_daily_reset }}</p>
+      <p>Monthly Credit Limit: {{ credit_limit_monthly }}</p>
+      <p>Monthly Credit Limit Resets {{ credit_limit_monthly_reset }}</p>
+      <p>Credit Rate Limit per Minute: {{ rate_limit_minute }} credits per minute</p>
+    </div>
+    <div>
+      <h3>Current Usage:</h3>
+      <p>Minute Requests Made: {{ current_minute_requests_made }}</p>
+      <p>Minute Requests Left: {{ current_minute_requests_left }}</p>
+      <p>Daily Credits Used: {{ current_day_credits_used }}</p>
+      <p>Daily Credits Left: {{ current_day_credits_left }}</p>
+      <p>Monthly Credits Used: {{ current_month_credits_used }}</p>
+      <p>Monthly Credits Left: {{ current_month_credits_left }}</p>
+    </div>
+  </body>
+</html>

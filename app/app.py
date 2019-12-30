@@ -18,6 +18,7 @@ currencies = ['USD', 'ALL', 'DZD', 'ARS', 'AMD', 'AUD', 'AZN', 'BHD', 'BDT',
 'ZAR', 'KRW', 'SSP', 'VES', 'LKR', 'SEK', 'CHF', 'THB', 'TTD', 'TND', 'TRY',
 'UGX', 'UAH', 'AED', 'UYU', 'UZS', 'VND']
 
+
 def convert_fiat(top, fiat):
 	if fiat:
 		if fiat in currencies:
@@ -35,9 +36,10 @@ def convert_fiat(top, fiat):
 
 
 
+dataUrl = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+keyUrl = 'https://pro-api.coinmarketcap.com/v1/key/info'
 
-def fetchAPIData(currency):
-	url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+def fetchAPIData(currency, url = dataUrl):
 	parameters = {
 		'start':'1',
 		'limit':'1',
@@ -102,3 +104,29 @@ def search():
 			volume_24h = volume_24h,
 			crypto_name = crypto_name
 		)
+
+# for funsies
+@app.route('/keyusage', methods=['GET'])
+def keyUsage():
+	a = fetchAPIData(currency = None, url = keyUrl)
+	plan = a['plan']
+	minute_usage = a['usage']['current_minute']
+	day_usage = a['usage']['current_day']
+	month_usage = a['usage']['current_month']
+
+	
+	return render_template(
+		'keyUsage.html',
+		credit_limit_daily = plan['credit_limit_daily'],
+		credit_limit_daily_reset = plan['credit_limit_daily_reset'],
+		credit_limit_monthly = plan['credit_limit_monthly'],
+		credit_limit_monthly_reset = plan['credit_limit_monthly_reset'],
+		rate_limit_minute = plan['rate_limit_minute'],
+
+		current_minute_requests_made = minute_usage['requests_made'],
+		current_minute_requests_left = minute_usage['requests_left'],
+		current_day_credits_used = day_usage['credits_used'],
+		current_day_credits_left = day_usage['credits_left'],
+		current_month_credits_used = month_usage['credits_used'],
+		current_month_credits_left = month_usage['credits_left']
+	)
